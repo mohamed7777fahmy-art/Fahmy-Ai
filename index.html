@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#061525">
+<link rel="manifest" href="manifest.json">
+<title>Fahmy AI</title>
+<style>
+:root{--bg:#06111f;--panel:#0b1d31;--panel2:#102942;--line:#173b5d;--text:#f4f8ff;--muted:#9fb4ca;--blue:#28a9ff;--purple:#8b63ff;--green:#19d39b;--danger:#ff5f72}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#122e50 0,transparent 35%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:78px}
+header{position:sticky;top:0;z-index:5;background:rgba(6,17,31,.88);backdrop-filter:blur(14px);padding:18px 16px 12px;border-bottom:1px solid rgba(40,169,255,.12)}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#0b3558,#071626);border:1px solid #236b9f;display:grid;place-items:center;font-weight:900;color:#7fd3ff;font-size:20px;box-shadow:0 0 25px #1471a633}.brand h1{font-size:19px;margin:0}.brand small{color:var(--muted)}
+main{padding:18px 16px}.screen{display:none}.screen.active{display:block}
+.hero{padding:20px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#0d2943,#081728);box-shadow:0 18px 45px #0005;margin-bottom:16px}
+.hero h2{margin:0 0 8px;font-size:25px}.hero p{color:var(--muted);margin:0;line-height:1.7}
+.search{display:flex;gap:8px;margin:14px 0}.search input,.field,textarea,select{width:100%;background:#081a2c;border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px;outline:none}.search input:focus,.field:focus,textarea:focus{border-color:var(--blue)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.tile{padding:17px;border:1px solid var(--line);border-radius:18px;background:#0a1d31;text-align:right;color:var(--text);min-height:105px}.tile b{display:block;margin-top:13px}.tile span{color:var(--muted);font-size:12px}
+.icon{font-size:25px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section-title h3{margin:0;font-size:17px}.btn{border:0;border-radius:13px;padding:10px 14px;background:linear-gradient(135deg,var(--blue),#5d7cff);color:white;font-weight:700}.btn.ghost{background:#0b2238;border:1px solid var(--line);color:#d9eaff}.btn.green{background:linear-gradient(135deg,#10b981,#16a6bd)}
+.list{display:grid;gap:9px}.item{display:flex;align-items:center;gap:11px;padding:13px;border:1px solid var(--line);border-radius:16px;background:#091a2b}.avatar{width:48px;height:48px;border-radius:14px;background:linear-gradient(145deg,#182f49,#0a1727);display:grid;place-items:center;font-size:22px}.item strong{display:block}.item small{color:var(--muted)}
+.chat{min-height:62vh;display:flex;flex-direction:column}.messages{flex:1;display:grid;gap:10px}.bubble{max-width:88%;padding:12px 14px;border-radius:17px;line-height:1.7}.ai{justify-self:start;background:#102942;border:1px solid var(--line)}.me{justify-self:end;background:linear-gradient(135deg,#176da8,#5b52b9)}.quick{display:flex;gap:7px;overflow:auto;padding:10px 0}.quick button{white-space:nowrap}.composer{display:flex;gap:8px;position:sticky;bottom:70px;padding-top:8px;background:linear-gradient(transparent,var(--bg) 25%)}
+textarea{resize:none;min-height:48px}.card{padding:16px;background:#091a2b;border:1px solid var(--line);border-radius:18px;margin-bottom:10px}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(5,15,27,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center}.nav{width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:7px 5px}.nav button{background:none;border:0;color:#7993aa;padding:7px 2px;font-size:11px}.nav button.active{color:#70caff}.nav i{display:block;font-style:normal;font-size:20px;margin-bottom:3px}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;z-index:20}.modal.open{display:flex}.sheet{background:#081a2c;width:min(520px,100%);margin:auto 0 0;padding:18px;border-radius:25px 25px 0 0;border:1px solid var(--line)}.sheet h3{margin-top:0}.row{display:flex;gap:8px}.row>*{flex:1}
+.note{color:var(--muted);font-size:12px;line-height:1.6}
+.badge{font-size:11px;border:1px solid #23577f;color:#7ed0ff;padding:4px 8px;border-radius:20px}
+@media(min-width:700px){body{padding:20px}.app{border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:0 30px 100px #0008}.bottom{position:fixed}.nav{max-width:520px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo">F</div><div><h1>Fahmy AI</h1><small>مساعدك الشخصي بالذكاء الاصطناعي</small></div></div></header>
+<main>
+<section id="home" class="screen active">
+<div class="hero"><h2>أهلاً يا محمد 👋</h2><p>مكان واحد لقصتك، أفكارك، شخصياتك، وتعلّمك للـAI.</p></div>
+<div class="search"><input id="homePrompt" placeholder="اسأل Fahmy AI أي حاجة..."><button class="btn" onclick="askFromHome()">اسأل</button></div>
+<div class="grid">
+<button class="tile" onclick="show('projects')"><div class="icon">📖</div><b>مشاريعي</b><span>إدارة قصصك ومشاريعك</span></button>
+<button class="tile" onclick="show('characters')"><div class="icon">👤</div><b>الشخصيات</b><span>بيانات وتصميمات الشخصيات</span></button>
+<button class="tile" onclick="show('scenes')"><div class="icon">🎬</div><b>صناعة مشهد</b><span>فكرة → سيناريو → Prompt</span></button>
+<button class="tile" onclick="show('ideas')"><div class="icon">💡</div><b>أفكاري</b><span>احفظ كل فكرة جديدة</span></button>
+<button class="tile" onclick="show('learn')"><div class="icon">🧠</div><b>تعلم AI</b><span>مهارات وأدوات</span></button>
+<button class="tile" onclick="show('tools')"><div class="icon">🔎</div><b>AI Tools</b><span>اختيار الأداة المناسبة</span></button>
+</div>
+<div class="section-title"><h3>آخر نشاط</h3><span class="badge">نسخة تجريبية</span></div>
+<div class="card"><strong>قصة محمد</strong><p class="note">مشروعك الأساسي جاهز للتوسعة. أضف الفصول والشخصيات والمشاهد من الأقسام بالأسفل.</p></div>
+</section>
+
+<section id="chat" class="screen">
+<div class="section-title"><h3>🤖 المساعد</h3></div>
+<div class="chat"><div id="messages" class="messages">
+<div class="bubble ai">أهلاً يا محمد 👋<br>أنا Fahmy AI. أقدر أساعدك في القصة، الشخصيات، المشاهد، الـPrompts، وتعلّم أدوات الـAI.<br><br>جرّب تقول: <b>حوّل فكرة لمشهد</b> أو <b>اعمل شخصية جديدة</b>.</div>
+</div><div class="quick"><button class="btn ghost" onclick="quick('حوّل فكرة إلى مشهد')">🎬 مشهد</button><button class="btn ghost" onclick="quick('ساعدني أصمم شخصية')">👤 شخصية</button><button class="btn ghost" onclick="quick('علمني حاجة في AI')">🧠 تعلّم</button></div>
+<div class="composer"><textarea id="chatInput" rows="1" placeholder="اكتب رسالتك..."></textarea><button class="btn" onclick="sendChat()">➤</button></div></div>
+</section>
+
+<section id="projects" class="screen"><div class="section-title"><h3>📖 مشاريعي</h3><button class="btn" onclick="openModal('project')">+ جديد</button></div><div id="projectList" class="list"></div></section>
+<section id="characters" class="screen"><div class="section-title"><h3>👤 الشخصيات</h3><button class="btn" onclick="openModal('character')">+ شخصية</button></div><div id="charList" class="list"></div></section>
+<section id="scenes" class="screen"><div class="section-title"><h3>🎬 صناعة مشهد</h3></div><div class="card"><label>فكرة المشهد</label><textarea id="sceneIdea" rows="5" placeholder="مثال: محمد يدخل الغابة ويسمع صوتًا غريبًا من شجرة..."></textarea><div style="height:8px"></div><button class="btn" onclick="generateScene()">حوّلها لمشهد</button></div><div id="sceneResult"></div></section>
+<section id="ideas" class="screen"><div class="section-title"><h3>💡 أفكاري</h3><button class="btn" onclick="openModal('idea')">+ فكرة</button></div><div id="ideaList" class="list"></div></section>
+<section id="learn" class="screen"><div class="section-title"><h3>🧠 تعلم AI</h3></div><div class="card"><b>ابدأ من هنا</b><p class="note">هنتعلم Prompting، كتابة المحتوى، تصميم الشخصيات، صناعة الفيديو، والأتمتة خطوة بخطوة.</p></div><div class="list"><div class="item"><div class="avatar">✍️</div><div><strong>أساسيات الـPrompt</strong><small>إزاي تطلب النتيجة الصح من AI</small></div></div><div class="item"><div class="avatar">🎨</div><div><strong>تصميم الشخصيات</strong><small>ثبات الشكل والـReferences</small></div></div><div class="item"><div class="avatar">🎥</div><div><strong>صناعة فيديو AI</strong><small>من السيناريو للمشهد النهائي</small></div></div></div></section>
+<section id="tools" class="screen"><div class="section-title"><h3>🔎 AI Tools</h3></div><input class="field" placeholder="ابحث عن أداة أو مهمة..." oninput="filterTools(this.value)"><div id="toolList" class="list" style="margin-top:10px"></div><p class="note">قاعدة الأدوات في النسخة الحالية تجريبية. لاحقًا سنوصلها بمصادر رسمية لتحديث الأسعار والميزات والحدود تلقائيًا.</p></section>
+</main>
+<div class="bottom"><nav class="nav">
+<button onclick="show('home')" data-nav="home" class="active"><i>⌂</i>الرئيسية</button>
+<button onclick="show('chat')" data-nav="chat"><i>🤖</i>المساعد</button>
+<button onclick="show('projects')" data-nav="projects"><i>📖</i>المشاريع</button>
+<button onclick="show('tools')" data-nav="tools"><i>🔎</i>الأدوات</button>
+</nav></div>
+</div>
+
+<div id="modal" class="modal"><div class="sheet"><div class="section-title"><h3 id="modalTitle">إضافة</h3><button class="btn ghost" onclick="closeModal()">إغلاق</button></div><div id="modalBody"></div></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const get=(k,d=[])=>JSON.parse(localStorage.getItem(k)||JSON.stringify(d));
+const set=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+let toolsData=[
+{name:"ChatGPT",cat:"كتابة",desc:"محادثة، كتابة، تحليل وأفكار",tag:"مساعد عام"},
+{name:"Gemini / Nano Banana",cat:"صور",desc:"إنشاء وتعديل صور وشخصيات",tag:"صور"},
+{name:"Google Flow / Veo",cat:"فيديو",desc:"تحويل الأفكار والصور إلى فيديو",tag:"فيديو"},
+{name:"ElevenLabs",cat:"صوت",desc:"أصوات وحوار للشخصيات",tag:"صوت"},
+{name:"Krea",cat:"صور وفيديو",desc:"توليد وتحرير ومراجع للشخصيات",tag:"إبداع"}
+];
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===id)); if(id==='projects')renderProjects();if(id==='characters')renderChars();if(id==='ideas')renderIdeas();if(id==='tools')renderTools();}
+function openModal(type){$('modal').classList.add('open');let title,body;
+if(type==='project'){title='مشروع جديد';body=`<input id="mName" class="field" placeholder="اسم المشروع"><div style="height:8px"></div><textarea id="mDesc" placeholder="وصف مختصر للمشروع"></textarea><div style="height:10px"></div><button class="btn" onclick="saveProject()">حفظ</button>`}
+if(type==='character'){title='شخصية جديدة';body=`<input id="mName" class="field" placeholder="اسم الشخصية"><div style="height:8px"></div><input id="mRole" class="field" placeholder="الدور / الوصف"><div style="height:10px"></div><button class="btn" onclick="saveChar()">حفظ</button>`}
+if(type==='idea'){title='فكرة جديدة';body=`<textarea id="mIdea" rows="5" placeholder="اكتب فكرتك..."></textarea><div style="height:10px"></div><button class="btn" onclick="saveIdea()">حفظ</button>`}
+$('modalTitle').textContent=title;$('modalBody').innerHTML=body}
+function closeModal(){$('modal').classList.remove('open')}
+function saveProject(){let a=get('projects');a.unshift({name:$('mName').value||'مشروع بدون اسم',desc:$('mDesc').value||''});set('projects',a);closeModal();renderProjects()}
+function saveChar(){let a=get('chars');a.unshift({name:$('mName').value||'شخصية جديدة',role:$('mRole').value||'وصف غير محدد'});set('chars',a);closeModal();renderChars()}
+function saveIdea(){let a=get('ideas');a.unshift({text:$('mIdea').value||'فكرة جديدة',date:new Date().toLocaleDateString('ar-EG')});set('ideas',a);closeModal();renderIdeas()}
+function renderProjects(){let a=get('projects',[{name:'قصة محمد',desc:'المشروع الأساسي'}]);$('projectList').innerHTML=a.map(x=>`<div class="item"><div class="avatar">📖</div><div><strong>${esc(x.name)}</strong><small>${esc(x.desc)}</small></div></div>`).join('')}
+function renderChars(){let a=get('chars',[{name:'محمد',role:'البطل'},{name:'فايوليت',role:'شخصية غامضة'},{name:'جانفي',role:'عالم غامض'}]);$('charList').innerHTML=a.map(x=>`<div class="item"><div class="avatar">👤</div><div><strong>${esc(x.name)}</strong><small>${esc(x.role)}</small></div></div>`).join('')}
+function renderIdeas(){let a=get('ideas',[{text:'تحويل كل فصل إلى عدة حلقات قصيرة',date:'أفكار المشروع'}]);$('ideaList').innerHTML=a.map(x=>`<div class="item"><div class="avatar">💡</div><div><strong>${esc(x.text)}</strong><small>${esc(x.date)}</small></div></div>`).join('')}
+function renderTools(){filterTools('')}
+function filterTools(q){let s=q.toLowerCase();$('toolList').innerHTML=toolsData.filter(x=>(x.name+x.cat+x.desc).toLowerCase().includes(s)).map(x=>`<div class="item"><div class="avatar">✦</div><div style="flex:1"><strong>${esc(x.name)} <span class="badge">${esc(x.tag)}</span></strong><small>${esc(x.desc)}</small></div></div>`).join('')}
+function generateScene(){let v=$('sceneIdea').value.trim();if(!v)return;$('sceneResult').innerHTML=`<div class="card"><h3>🎬 المشهد المقترح</h3><p>${esc(v)}</p><hr style="border-color:#173b5d"><b>الحوار</b><p class="note">هنحوّل الفكرة لحوار طبيعي بالمصري في النسخة المتصلة بالـAI.</p><b>Prompt للصورة</b><p class="note">مشهد سينمائي كرتوني، نفس تصميم الشخصيات المرجعية، إضاءة ليلية، تكوين واضح، تفاصيل مناسبة للفيديو.</p><b>Prompt للفيديو</b><p class="note">لقطة متحركة 6–8 ثوانٍ، حركة كاميرا هادئة، تعبيرات واضحة، الحفاظ على ثبات الشخصيات.</p></div>`}
+function sendChat(){let v=$('chatInput').value.trim();if(!v)return;addMsg(v,'me');$('chatInput').value='';setTimeout(()=>addMsg(reply(v),'ai'),250)}
+function quick(v){$('chatInput').value=v;sendChat()}
+function askFromHome(){let v=$('homePrompt').value.trim();if(!v)return;show('chat');$('chatInput').value=v;sendChat()}
+function addMsg(v,c){$('messages').insertAdjacentHTML('beforeend',`<div class="bubble ${c}">${esc(v)}</div>`);window.scrollTo(0,document.body.scrollHeight)}
+function reply(v){if(/شخصية/.test(v))return'تمام. اكتبلي اسم الشخصية، عمرها التقريبي، دورها، شكلها، وشخصيتها، وأنا أرتبها لك في بطاقة شخصية جاهزة للتصميم.';if(/مشهد|فكرة/.test(v))return'ابعتلي الفكرة حتى لو سطر واحد، وأنا أحولها إلى مشهد + حوار + Prompt للصورة + Prompt للفيديو.';if(/تعلم|AI/.test(v))return'أقدر أعمل لك خطة تعلم عملية: Prompting → صور → شخصيات ثابتة → فيديو → صوت → مونتاج → Agents.';return'أنا جاهز. النسخة الحالية Prototype محلي، وبعد توصيل نموذج AI حقيقي هقدر أنفذ الطلبات بدل الردود التجريبية.'}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+renderProjects();renderChars();renderIdeas();renderTools();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body></html>
